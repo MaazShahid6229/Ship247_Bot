@@ -1,0 +1,9 @@
+[server]
+port = 8000
+[browser]
+gatherUsageStats = false
+serverAddress = "127.0.0.1"
+[client]
+toolbarMode = "minimal"
+[theme]
+base = "light"

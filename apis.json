@@ -1,0 +1,166 @@
+{
+  "base_url": "https://ship247.com/api/bot",
+  "headers": {
+    "Authorization": "Bearer {token}"
+  },
+  "apis": [
+    {
+      "endpoint": "/bookings/",
+      "method": "POST",
+      "description": "Retrieves all bookings for a specific user. The user ID must be provided in the URL as a path parameter.",
+      "headers": {
+        "Authorization": "Bearer {token}"
+      },
+      "parameters": {
+        "user_id": {
+          "type": "integer",
+          "description": "Unique identifier of the user whose bookings are being retrieved."
+        }
+      }
+    },
+    {
+      "endpoint": "/booking/cancel",
+      "method": "POST",
+      "description": "Cancels a specific booking. The booking ID must be provided in the request payload.",
+      "headers": {
+        "Authorization": "Bearer {token}"
+      },
+      "parameters": {
+        "booking_id": {
+          "type": "integer",
+          "description": "Unique identifier of the booking to be canceled."
+        }
+      }
+    },
+    {
+      "endpoint": "/get-locations-by-city",
+      "method": "POST",
+      "description": "Retrieves a list of locations for a given city, including name, code, and other relevant data.",
+      "headers": {
+        "Authorization": "Bearer {token}"
+      },
+      "parameters": {
+        "city": {
+          "type": "string",
+          "description": "Name of the city to retrieve locations for."
+        }
+      }
+    },
+    {
+      "endpoint": "/get-all-sea-schedules",
+      "method": "POST",
+      "description": "Retrieves sea shipment schedules based on departure date, origin, destination, and container size.",
+      "headers": {
+        "Authorization": "Bearer {token}"
+      },
+      "parameters": {
+        "departure_date": {
+          "type": "string",
+          "format": "yyyy-mm-dd",
+          "description": "Date of departure in the format yyyy-mm-dd."
+        },
+        "origin_code": {
+          "type": "string",
+          "description": "Port code of the origin location. Obtain this by calling '/get-locations-by-city' with the city name."
+        },
+        "destination_code": {
+          "type": "string",
+          "description": "Port code of the destination location. Obtain this by calling '/get-locations-by-city' with the city name."
+        },
+        "container_size": {
+          "type": "string",
+          "description": "Container size code. Options: '22G1' (20 Dry Standard), '42G1' (40 Dry Standard), '45G1' (40 Dry High), '22R1' (20 Reefer Standard), '45R1' (40 Reefer High).",
+          "allowed_values": [
+            "22G1",
+            "42G1",
+            "45G1",
+            "22R1",
+            "45R1"
+          ]
+        },
+        "route_type": {
+          "type": "string",
+          "description": "Route type, always set to 1.",
+          "default": "1"
+        }
+      }
+    },
+    {
+      "endpoint": "/get-rail-schedules",
+      "method": "POST",
+      "description": "Retrieves rail shipment schedules based on departure date, origin, destination, and container size.",
+      "headers": {
+        "Authorization": "Bearer {token}"
+      },
+      "parameters": {
+        "departure_date": {
+          "type": "string",
+          "format": "yyyy-mm-dd",
+          "description": "Date of departure in the format yyyy-mm-dd."
+        },
+        "origin_code": {
+          "type": "string",
+          "description": "Station code of the origin location. Obtain this by calling '/get-locations-by-city' with the city name."
+        },
+        "destination_code": {
+          "type": "string",
+          "description": "Station code of the destination location. Obtain this by calling '/get-locations-by-city' with the city name."
+        },
+        "container_size": {
+          "type": "string",
+          "description": "Container size code. Options: '20 Dry Standard', '40 Dry Standard', '40 Dry High', '45 Dry High', '53 Dry High'.",
+          "allowed_values": [
+            "20 Dry Standard",
+            "40 Dry Standard",
+            "40 Dry High",
+            "45 Dry High",
+            "53 Dry High"
+          ]
+        }
+      }
+    },
+    {
+      "endpoint": "/get-land-schedules",
+      "method": "POST",
+      "description": "Retrieves land transport schedules based on departure date, origin, destination, and truck type.",
+      "headers": {
+        "Authorization": "Bearer {token}"
+      },
+      "parameters": {
+        "departure_date": {
+          "type": "string",
+          "format": "yyyy-mm-dd",
+          "description": "Date of departure in the format yyyy-mm-dd."
+        },
+        "origin_code": {
+          "type": "string",
+          "description": "Location code of the origin. Obtain this by calling '/get-locations-by-city' with the city name."
+        },
+        "destination_code": {
+          "type": "string",
+          "description": "Location code of the destination. Obtain this by calling '/get-locations-by-city' with the city name."
+        },
+        "truck_type": {
+          "type": "string",
+          "description": "Type of truck required. Options: '12 Meter Flatbed', '15 Meter Flatbed', '18 Meter Flatbed', 'Side Curtain', 'Box Trailer', 'Reefer Box', 'Generator Set Trailer', 'Tilt Truck', 'Conestoga', 'Drop-side Platform', 'Jumbo/Dolly', 'Lowbed Truck', 'Any', 'Other'.",
+          "allowed_values": [
+            "12 Meter Flatbed",
+            "15 Meter Flatbed",
+            "18 Meter Flatbed",
+            "Side Curtain",
+            "Box Trailer",
+            "Reefer Box",
+            "Generator Set Trailer",
+            "Tilt Truck",
+            "Conestoga",
+            "Drop-side Platform",
+            "Jumbo/Dolly",
+            "Lowbed Truck",
+            "Any",
+            "Other"
+          ]
+        }
+      }
+    }
+  ]
+}
