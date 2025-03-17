@@ -15,10 +15,10 @@ api_json = data["apis"]
 class APICall(BaseModel):
     api_name: str = Field(description="API name that indicates which API needs to be called")
     payload: str = Field(description="Payload to be sent in the request body (JSON format)")
-    headers: dict = Field(description="Header with token value")
+    headers: str = Field(description="Header with token value (JSON format)")
 
 
-def api_call(api_name: str, payload: str, headers: dict) -> str:
+def api_call(api_name: str, payload: str, headers: str) -> str:
     try:
         # Find the API from the JSON config
         api_data = next((api for api in api_json if api["endpoint"].strip("/") == api_name.strip("/")), None)
@@ -26,15 +26,17 @@ def api_call(api_name: str, payload: str, headers: dict) -> str:
             return "No API Matched"
         if not headers:
             return "Headers not found"
+
         # Prepare request
         url = f"{data['base_url']}{api_data['endpoint']}"
         payload_data = json.loads(payload) if payload else {}
+        headers_data = json.loads(headers)
 
         # Make API request
         if api_data["method"] == "GET":
-            response = requests.get(url, headers=headers, params=payload_data)
+            response = requests.get(url, headers=headers_data, params=payload_data)
         else:
-            response = requests.post(url, headers=headers, json=payload_data)
+            response = requests.post(url, headers=headers_data, json=payload_data)
 
         # Handle response
         if response.status_code in [200, 201]:
