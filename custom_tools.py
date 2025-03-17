@@ -1,27 +1,8 @@
 import json
 
 import requests
-import streamlit as st
 from langchain.tools import StructuredTool
-from langchain_openai import AzureChatOpenAI
 from pydantic import BaseModel, Field
-
-# Load secrets from Streamlit
-AZURE_OPENAI_API_KEY = st.secrets["AZURE_OPENAI_API_KEY"]
-AZURE_ENDPOINT = st.secrets["AZURE_ENDPOINT"]
-AZURE_DEPLOYMENT = st.secrets["AZURE_DEPLOYMENT"]
-OPENAI_API_VERSION = st.secrets["OPENAI_API_VERSION"]
-
-if not AZURE_OPENAI_API_KEY:
-    st.error("❌ API Key is missing! Please check your `secrets.toml` or environment variables.")
-    st.stop()
-    
-# Initialize Azure OpenAI Model
-simple_model = AzureChatOpenAI(
-    azure_endpoint=AZURE_ENDPOINT,
-    azure_deployment=AZURE_DEPLOYMENT,
-    openai_api_version=OPENAI_API_VERSION,
-)
 
 # Open the file and load its contents into a dictionary
 with open("apis.json", 'r') as json_file:

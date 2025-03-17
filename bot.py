@@ -3,25 +3,22 @@ from typing import Literal
 
 import streamlit as st
 import tiktoken
-from langchain_openai import AzureChatOpenAI
+from langchain_openai import ChatOpenAI
 from langgraph.graph import StateGraph, MessagesState, START, END
 from langgraph.prebuilt import ToolNode
 
 from custom_tools import get_tools
 
 # Load secrets from Streamlit
-os.environ["AZURE_OPENAI_API_KEY"] = st.secrets["AZURE_OPENAI_API_KEY"]
-azure_endpoint = st.secrets["AZURE_ENDPOINT"]
-azure_deployment = st.secrets["AZURE_DEPLOYMENT"]
-openai_api_version = st.secrets["OPENAI_API_VERSION"]
+os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 
-if not azure_endpoint:
+if not os.environ["OPENAI_API_KEY"]:
     st.error("❌ API Key is missing! Please check your `secrets.toml` or environment variables.")
     st.stop()
 
 # Initialize tokenizer for your model
 encoding = tiktoken.get_encoding("cl100k_base")
-MAX_TOKENS = 100000  # Set your model's max token limit here
+MAX_TOKENS = 128000  # GPT-4o max token limit
 
 
 def count_tokens(text: str) -> int:
@@ -40,11 +37,8 @@ def truncate_message(message: str, max_tokens: int) -> str:
 
 class ChatBot:
     def __init__(self):
-        self.llm = AzureChatOpenAI(
-            azure_endpoint=azure_endpoint,
-            azure_deployment=azure_deployment,
-            openai_api_version=openai_api_version,
-            streaming=True
+        self.llm = ChatOpenAI(
+            model="gpt-4o",  # Use GPT-4o
         )
 
     def call_tool(self):
