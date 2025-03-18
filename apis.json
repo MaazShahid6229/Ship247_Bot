@@ -120,6 +120,21 @@
       }
     },
     {
+      "endpoint": "/get-all-rail-schedules",
+      "method": "POST",
+      "description": "Retrieves rail all shipments schedules based on departure date",
+      "headers": {
+        "Authorization": "Bearer {token}"
+      },
+      "parameters": {
+        "departure_date": {
+          "type": "string",
+          "format": "yyyy-mm-dd",
+          "description": "Date of departure in the format yyyy-mm-dd."
+        }
+      }
+    },
+    {
       "endpoint": "/get-land-schedules",
       "method": "POST",
       "description": "Retrieves land transport schedules based on departure date, origin, destination, and truck type.",
