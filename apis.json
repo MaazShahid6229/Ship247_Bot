@@ -106,7 +106,7 @@
           "type": "string",
           "description": "Station code of the destination location. Obtain this by calling '/get-locations-by-city' with the city name."
         },
-        "container_size": {
+        "truck_type": {
           "type": "string",
           "description": "Container size code. Options: '20 Dry Standard', '40 Dry Standard', '40 Dry High', '45 Dry High', '53 Dry High'.",
           "allowed_values": [
