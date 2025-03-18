@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 
 import requests
 import streamlit as st
@@ -102,10 +103,10 @@ if st.session_state.authenticated:
             Here is some API for Ship247:
 
             {api_json}
-
+            
             Also you have here is user data: {st.session_state.user_data.get("user", {})} use this detail and provide the best service to the user. tell them user that you know the name and details of the user.
             use this token details for the API call: {st.session_state.user_data.get("token", {})}
-
+            Today date is: {datetime.now().strftime("%Y-%m-%d ")}
             ### How You Work:
             1. **Understand the Query**
                - Identify whether the user needs pricing, scheduling, tracking, or cancellation.
