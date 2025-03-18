@@ -7,6 +7,9 @@ __pycache__/
 # keys
 .streamlit/secrets.toml
 
+# test files
+test.py
+
 # C extensions
 *.so
 .idea
